@@ -1,14 +1,32 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Ionic Blank
+      Memory-game
     </ion-title>
+ 
+      <ion-chip slot="end">{{foundPairs}}</ion-chip>
+      <ion-button slot="start" routerLink="/settings">
+      <ion-icon name="cog"></ion-icon>
+    </ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div class="ion-padding">
-    The world is your oyster.
-    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
-  </div>
+ 
+  <ion-grid>
+    <ion-row>
+      <ion-col [size]="cardColumnSize" *ngFor="let card of cardDeck">
+      <ion-img src="/assets/{{card.revealed? 'cards/' + card.image: 'question-mark.png' }}" 
+                class="card" (click)="pickCard(card)"></ion-img>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  
 </ion-content>
+
+<ion-footer>
+<ion-toolbar>
+  <ion-button expand="block" *ngIf="foundPairs == numberOfCards" (click)="playAgain()">REJOUER</ion-button>
+</ion-toolbar>
+
+</ion-footer>
